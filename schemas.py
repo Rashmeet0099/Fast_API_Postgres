@@ -1,16 +1,18 @@
+# File: api_postgres/schemas.py
+
 from pydantic import BaseModel
 
 class BookBase(BaseModel):
     title: str
     author: str
     description: str
-    year: int = 2024
+    year: int
 
 class BookCreate(BookBase):
-    pass
+    id: int  # <-- required from user when creating
 
 class Book(BookBase):
     id: int
 
     class Config:
-        orm_mode = True  # Correct attribute
+        from_attributes = True
